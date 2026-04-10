@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+    MainView.fxml — Primary application window
+    Controller: bm.gui.MainView
+    Layout: full-height sidebar + main content area
+-->
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="bm.gui.MainView"
+            stylesheets="@../css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- ══════════════ LEFT SIDEBAR ══════════════ -->
+    <left>
+        <VBox styleClass="sidebar" spacing="4">
+            <padding><Insets top="0" right="0" bottom="16" left="0"/></padding>
+
+            <!-- Logo / App Name -->
+            <VBox styleClass="top-bar" alignment="CENTER_LEFT" minHeight="60" maxHeight="60">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="📚" style="-fx-font-size:20px;"/>
+                    <Label text="Book Manager" style="-fx-font-size:15px; -fx-font-weight:700; -fx-text-fill:#E2E8F0;"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="2" style="-fx-padding:12 0 0 0;">
+                <Label text="LIBRARY" styleClass="label-section"
+                       style="-fx-padding:0 0 6 20;"/>
+                <Button fx:id="navLibrary"    text="📖  All Books"     styleClass="nav-item, nav-item-active"
+                        onAction="#showLibrary"    maxWidth="Infinity"/>
+                <Button fx:id="navFavourites" text="❤️  Favourites"    styleClass="nav-item"
+                        onAction="#showFavourites" maxWidth="Infinity"/>
+                <Button fx:id="navFilters"    text="🔍  Filters"       styleClass="nav-item"
+                        onAction="#showFilters"    maxWidth="Infinity"/>
+
+                <Label text="INSIGHTS" styleClass="label-section"
+                       style="-fx-padding:20 0 6 20;"/>
+                <Button fx:id="navStats"      text="📊  Statistics"    styleClass="nav-item"
+                        onAction="#showStatistics" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Push to bottom -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Footer info -->
+            <VBox style="-fx-padding:0 0 0 20;" spacing="2">
+                <Separator/>
+                <Label fx:id="libraryCountLabel" text="0 books in library"
+                       styleClass="label-muted" style="-fx-padding:10 0 0 0;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ══════════════ MAIN CONTENT ══════════════ -->
+    <center>
+        <StackPane fx:id="contentStack" style="-fx-background-color:#0D0F14;">
+
+            <!-- ── Library Panel ── -->
+            <VBox fx:id="libraryPanel" visible="true" style="-fx-background-color:#0D0F14;">
+
+                <!-- Top bar: title + search + actions -->
+                <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+                    <Label text="All Books" styleClass="label-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="searchInput" styleClass="search-field"
+                               promptText="🔍  Search by title or author…"
+                               onKeyReleased="#onSearchTyped"/>
+                    <Button text="✕" styleClass="btn-icon" onAction="#clearSearch"
+                            tooltip="Clear search"/>
+                </HBox>
+
+                <!-- Action toolbar -->
+                <HBox style="-fx-padding:12 24 12 24; -fx-background-color:#0D0F14;"
+                      spacing="8" alignment="CENTER_LEFT">
+                    <Button fx:id="addButton"     text="＋  Add Book"   styleClass="btn-primary"
+                            onAction="#openAddDialog"/>
+                    <Button fx:id="editButton"    text="✎  Edit"        styleClass="button"
+                            onAction="#openEditDialog"/>
+                    <Button fx:id="detailsButton" text="🔎  Details"    styleClass="button"
+                            onAction="#openDetails"/>
+                    <Button fx:id="deleteButton"  text="🗑  Delete"     styleClass="btn-danger"
+                            onAction="#deleteSelected"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="resultCountLabel" text="" styleClass="label-secondary"/>
+                </HBox>
+
+                <!-- Table -->
+                <TableView fx:id="bookTable" VBox.vgrow="ALWAYS"
+                           style="-fx-background-color:#0D0F14; -fx-padding:0 24 24 24;"
+                           placeholder="No books found. Add your first book!">
+                    <columns>
+                        <TableColumn fx:id="colTitle"     text="TITLE"      prefWidth="250"/>
+                        <TableColumn fx:id="colAuthor"    text="AUTHOR"     prefWidth="180"/>
+                        <TableColumn fx:id="colGenre"     text="GENRE"      prefWidth="110"/>
+                        <TableColumn fx:id="colYear"      text="YEAR"       prefWidth="70"/>
+                        <TableColumn fx:id="colPages"     text="PAGES"      prefWidth="70"/>
+                        <TableColumn fx:id="colStatus"    text="STATUS"     prefWidth="120"/>
+                        <TableColumn fx:id="colRating"    text="RATING"     prefWidth="100"/>
+                        <TableColumn fx:id="colPublisher" text="PUBLISHER"  prefWidth="140"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- ── Favourites Panel (hidden by default) ── -->
+            <VBox fx:id="favouritesPanel" visible="false" style="-fx-background-color:#0D0F14;"/>
+
+            <!-- ── Filters Panel (hidden by default) ── -->
+            <VBox fx:id="filtersPanel" visible="false" style="-fx-background-color:#0D0F14;"/>
+
+            <!-- ── Statistics Panel (hidden by default) ── -->
+            <VBox fx:id="statisticsPanel" visible="false" style="-fx-background-color:#0D0F14;"/>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

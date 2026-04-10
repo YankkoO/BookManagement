@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    StatisticsView.fxml — Statistics & charts panel
+    Controller: bm.gui.StatisticsView
+-->
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="bm.gui.StatisticsView"
+      stylesheets="@../css/styles.css"
+      style="-fx-background-color:#0D0F14;"
+      spacing="0">
+
+    <!-- Top bar -->
+    <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+        <Label text="📊  Statistics" styleClass="label-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Refresh" styleClass="button" onAction="#computeStatistics"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="20" style="-fx-padding:24;">
+
+            <!-- Summary stat cards row -->
+            <HBox spacing="16">
+                <!-- Total -->
+                <VBox styleClass="card-stat" HBox.hgrow="ALWAYS" spacing="4"
+                      style="-fx-background-color:#161920; -fx-border-color:#6C63FF;
+                             -fx-border-width:0 0 0 3; -fx-padding:16 20;">
+                    <Label text="TOTAL BOOKS" styleClass="label-section"/>
+                    <Label fx:id="totalBooksLabel" text="0" styleClass="label-stat"/>
+                </VBox>
+                <!-- Read -->
+                <VBox styleClass="card-stat" HBox.hgrow="ALWAYS" spacing="4"
+                      style="-fx-background-color:#161920; -fx-border-color:#4ADE80;
+                             -fx-border-width:0 0 0 3; -fx-padding:16 20;">
+                    <Label text="COMPLETED" styleClass="label-section"
+                           style="-fx-text-fill:#4ADE80;"/>
+                    <Label fx:id="readBooksLabel" text="0" styleClass="label-stat"
+                           style="-fx-text-fill:#4ADE80;"/>
+                </VBox>
+                <!-- Unread -->
+                <VBox styleClass="card-stat" HBox.hgrow="ALWAYS" spacing="4"
+                      style="-fx-background-color:#161920; -fx-border-color:#94A3B8;
+                             -fx-border-width:0 0 0 3; -fx-padding:16 20;">
+                    <Label text="UNREAD" styleClass="label-section"
+                           style="-fx-text-fill:#94A3B8;"/>
+                    <Label fx:id="unreadBooksLabel" text="0" styleClass="label-stat"
+                           style="-fx-text-fill:#94A3B8;"/>
+                </VBox>
+                <!-- Avg rating -->
+                <VBox styleClass="card-stat" HBox.hgrow="ALWAYS" spacing="4"
+                      style="-fx-background-color:#161920; -fx-border-color:#FBBF24;
+                             -fx-border-width:0 0 0 3; -fx-padding:16 20;">
+                    <Label text="AVG RATING" styleClass="label-section"
+                           style="-fx-text-fill:#FBBF24;"/>
+                    <Label fx:id="avgRatingLabel" text="0.00 / 5.00" styleClass="label-stat"
+                           style="-fx-font-size:20px; -fx-text-fill:#FBBF24;"/>
+                </VBox>
+                <!-- Currently reading -->
+                <VBox styleClass="card-stat" HBox.hgrow="ALWAYS" spacing="4"
+                      style="-fx-background-color:#161920; -fx-border-color:#FBBF24;
+                             -fx-border-width:0 0 0 3; -fx-padding:16 20;">
+                    <Label text="READING" styleClass="label-section"
+                           style="-fx-text-fill:#FBBF24;"/>
+                    <Label fx:id="readingBooksLabel" text="0" styleClass="label-stat"
+                           style="-fx-text-fill:#FBBF24;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Charts row -->
+            <HBox spacing="20">
+                <!-- Pie chart: genre breakdown -->
+                <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="8">
+                    <Label text="BOOKS BY GENRE" styleClass="label-section"/>
+                    <PieChart fx:id="genrePieChart" prefHeight="280" legendVisible="true"
+                              labelsVisible="true"/>
+                </VBox>
+                <!-- Bar chart: books per author -->
+                <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="8">
+                    <Label text="TOP AUTHORS" styleClass="label-section"/>
+                    <BarChart fx:id="authorBarChart" prefHeight="280" legendVisible="false">
+                        <xAxis>
+                            <CategoryAxis fx:id="authorAxis" label="Author"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis fx:id="authorCountAxis" label="Books" minorTickVisible="false"/>
+                        </yAxis>
+                    </BarChart>
+                </VBox>
+            </HBox>
+
+            <!-- Status breakdown bar chart -->
+            <VBox styleClass="card" spacing="8">
+                <Label text="READING STATUS OVERVIEW" styleClass="label-section"/>
+                <BarChart fx:id="statusBarChart" prefHeight="200" legendVisible="false">
+                    <xAxis>
+                        <CategoryAxis fx:id="statusAxis"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="statusCountAxis" label="Books" minorTickVisible="false"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+</VBox>

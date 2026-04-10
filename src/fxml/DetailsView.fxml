@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    DetailsView.fxml — Full-screen book detail panel
+    Controller: bm.gui.DetailsView
+-->
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="bm.gui.DetailsView"
+            stylesheets="@../css/styles.css"
+            prefWidth="820" prefHeight="680"
+            style="-fx-background-color:#0D0F14;">
+
+    <!-- Header bar -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <Button text="← Back" styleClass="button" onAction="#closeWindow" fx:id="backButton"/>
+            <Label fx:id="headerLabel" text="Book Details"
+                   style="-fx-font-size:16px; -fx-font-weight:600; -fx-text-fill:#E2E8F0;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="markReadButton" text="✓  Mark as Read"
+                    styleClass="btn-primary" onAction="#markAsRead"/>
+        </HBox>
+    </top>
+
+    <!-- Content -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color:#0D0F14;">
+            <VBox spacing="20" style="-fx-padding:24;">
+
+                <!-- Book title + author card -->
+                <VBox styleClass="card" spacing="8">
+                    <Label fx:id="titleLabel" text="Book Title"
+                           style="-fx-font-size:24px; -fx-font-weight:700; -fx-text-fill:#E2E8F0;
+                                  -fx-wrap-text:true;"/>
+                    <Label fx:id="authorLabel" text="Author"
+                           style="-fx-font-size:15px; -fx-text-fill:#94A3B8;"/>
+
+                    <!-- Star rating row -->
+                    <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding:8 0 0 0;">
+                        <HBox fx:id="starRatingBox" spacing="4"/>
+                        <Label fx:id="ratingValueLabel" text="0.0 / 5.0"
+                               styleClass="label-secondary"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="statusBadge" text="NOT READ" styleClass="badge, badge-not-read"/>
+                    </HBox>
+
+                    <!-- Rate it buttons -->
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Label text="Rate:" styleClass="label-secondary"/>
+                        <Button text="1★" styleClass="btn-icon" onAction="#rate1"/>
+                        <Button text="2★" styleClass="btn-icon" onAction="#rate2"/>
+                        <Button text="3★" styleClass="btn-icon" onAction="#rate3"/>
+                        <Button text="4★" styleClass="btn-icon" onAction="#rate4"/>
+                        <Button text="5★" styleClass="btn-icon" onAction="#rate5"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Metadata grid card -->
+                <VBox styleClass="card" spacing="4">
+                    <Label text="BOOK DETAILS" styleClass="label-section"
+                           style="-fx-padding:0 0 8 0;"/>
+                    <GridPane hgap="32" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120" prefWidth="140"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints minWidth="120" prefWidth="140"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <Label text="Genre" styleClass="detail-label"
+                               GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Label fx:id="genreLabel" text="—" styleClass="detail-value"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <Label text="Publisher" styleClass="detail-label"
+                               GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                        <Label fx:id="publisherLabel" text="—" styleClass="detail-value"
+                               GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                        <Label text="Year" styleClass="detail-label"
+                               GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <Label fx:id="yearLabel" text="—" styleClass="detail-value"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <Label text="Pages" styleClass="detail-label"
+                               GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                        <Label fx:id="pagesLabel" text="—" styleClass="detail-value"
+                               GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                        <Label text="Date Added" styleClass="detail-label"
+                               GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <Label fx:id="dateAddedLabel" text="—" styleClass="detail-value"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <Label text="Completed On" styleClass="detail-label"
+                               GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                        <Label fx:id="dateCompletedLabel" text="—" styleClass="detail-value"
+                               GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                        <Label text="Days in Library" styleClass="detail-label"
+                               GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <Label fx:id="daysInLibraryLabel" text="—" styleClass="detail-value"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- Reviews section -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="REVIEWS" styleClass="label-section"/>
+
+                    <!-- Add review -->
+                    <VBox spacing="8">
+                        <TextArea fx:id="reviewTextArea" promptText="Write your review here…"
+                                  prefRowCount="4" wrapText="true"/>
+                        <HBox spacing="8" alignment="CENTER_RIGHT">
+                            <Label text="Rating (0-10):" styleClass="label-secondary"/>
+                            <Spinner fx:id="reviewRatingSpinner" min="0" max="10"
+                                     initialValue="8" editable="true"
+                                     style="-fx-pref-width:70;"/>
+                            <Button text="Add Review" styleClass="btn-primary" onAction="#addReview"/>
+                        </HBox>
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- Reviews list -->
+                    <ListView fx:id="reviewList" prefHeight="200"
+                              style="-fx-background-color:transparent; -fx-border-color:transparent;"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    FavouritesView.fxml — Favourite reviews panel
+    Controller: bm.gui.FavouritesView
+-->
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="bm.gui.FavouritesView"
+      stylesheets="@../css/styles.css"
+      style="-fx-background-color:#0D0F14;"
+      spacing="0">
+
+    <!-- Top bar -->
+    <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+        <Label text="❤️  Favourite Reviews" styleClass="label-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="favCountLabel" text="0 favourites" styleClass="label-secondary"/>
+    </HBox>
+
+    <!-- Content -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="16" style="-fx-padding:24;">
+
+            <!-- Empty state -->
+            <VBox fx:id="emptyState" alignment="CENTER" spacing="12"
+                  style="-fx-padding:80 0;">
+                <Label text="❤️" style="-fx-font-size:48px;"/>
+                <Label text="No favourite reviews yet"
+                       style="-fx-font-size:16px; -fx-font-weight:600; -fx-text-fill:#E2E8F0;"/>
+                <Label text="Mark reviews as favourite in the book details screen."
+                       styleClass="label-secondary"/>
+            </VBox>
+
+            <!-- List of favourites -->
+            <ListView fx:id="favouritesList" VBox.vgrow="ALWAYS" prefHeight="600"
+                      style="-fx-background-color:transparent; -fx-border-color:transparent;"/>
+
+        </VBox>
+    </ScrollPane>
+</VBox>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    AddEditDialog.fxml — Modal dialog for adding or editing a book
+    Controller: bm.gui.AddEditDialog
+-->
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="bm.gui.AddEditDialog"
+      stylesheets="@../css/styles.css"
+      prefWidth="520"
+      style="-fx-background-color:#0D0F14;">
+
+    <!-- Header -->
+    <VBox styleClass="dialog-header" spacing="4">
+        <Label fx:id="dialogTitleLabel" text="Add New Book"
+               style="-fx-font-size:18px; -fx-font-weight:700; -fx-text-fill:#E2E8F0;"/>
+        <Label text="Fill in the book details below."
+               styleClass="label-secondary"/>
+    </VBox>
+
+    <!-- Separator -->
+    <Separator/>
+
+    <!-- Form body -->
+    <GridPane styleClass="dialog-body" hgap="16" vgap="14" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <!-- Title (spans 2 cols) -->
+        <Label text="Title *" styleClass="detail-label"
+               GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="titleField" promptText="e.g. The Great Gatsby"
+                   GridPane.columnIndex="0" GridPane.rowIndex="1"
+                   GridPane.columnSpan="2"/>
+
+        <!-- Author (spans 2 cols) -->
+        <Label text="Author *" styleClass="detail-label"
+               GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="authorField" promptText="e.g. F. Scott Fitzgerald"
+                   GridPane.columnIndex="0" GridPane.rowIndex="3"
+                   GridPane.columnSpan="2"/>
+
+        <!-- Genre -->
+        <Label text="Genre" styleClass="detail-label"
+               GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="genreCombo" maxWidth="Infinity"
+                  GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+
+        <!-- Publisher -->
+        <Label text="Publisher" styleClass="detail-label"
+               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <TextField fx:id="publisherField" promptText="e.g. Scribner"
+                   GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+        <!-- Year -->
+        <Label text="Publication Year *" styleClass="detail-label"
+               GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <TextField fx:id="yearField" promptText="e.g. 1925"
+                   GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+
+        <!-- Pages -->
+        <Label text="Pages *" styleClass="detail-label"
+               GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+        <TextField fx:id="pagesField" promptText="e.g. 180"
+                   GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+        <!-- Status -->
+        <Label text="Reading Status" styleClass="detail-label"
+               GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+        <ComboBox fx:id="statusCombo" maxWidth="Infinity"
+                  GridPane.columnIndex="0" GridPane.rowIndex="9"
+                  GridPane.columnSpan="2"/>
+
+        <!-- Error area -->
+        <Label fx:id="errorLabel" text="" styleClass="error-label" wrapText="true"
+               GridPane.columnIndex="0" GridPane.rowIndex="10"
+               GridPane.columnSpan="2" maxWidth="Infinity"/>
+    </GridPane>
+
+    <!-- Footer with action buttons -->
+    <Separator/>
+    <HBox styleClass="dialog-footer" spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" styleClass="button" onAction="#cancel" fx:id="cancelButton"/>
+        <Button text="Save Book" styleClass="btn-primary" onAction="#save" fx:id="saveButton"/>
+    </HBox>
+
+</VBox>
